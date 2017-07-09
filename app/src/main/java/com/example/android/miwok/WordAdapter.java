@@ -45,6 +45,18 @@ public class WordAdapter extends ArrayAdapter<Word> {
         ImageView miwokImage = (ImageView) listItemView.findViewById(R.id.miwok_image_view);
         miwokImage.setImageResource(currentWord.getMiwokImage());
 
+        ImageView playWord = (ImageView) listItemView.findViewById(R.id.play_text_view);
+        playWord.setImageResource(R.drawable.ic_play_arrow_white_36dp);
+
+/*
+        final MediaPlayer mp = MediaPlayer.create(listItemView.getContext(), currentWord.getMiwokSound());
+        playWord.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                mp.start();
+            }
+        });
+*/
+
         return listItemView;
 
     }

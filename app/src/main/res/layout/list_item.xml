@@ -30,4 +30,12 @@
         app:layout_constraintTop_toBottomOf="@+id/miwok_text_view"
         tools:text="XYZ" />
 
+    <ImageView
+        android:id="@+id/play_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_play_arrow_white_36dp"
+        app:layout_constraintLeft_toRightOf="@+id/english_text_view"
+        app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

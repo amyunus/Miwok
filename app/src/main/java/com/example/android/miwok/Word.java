@@ -12,27 +12,47 @@ public class Word {
 
     private int mImageWord;
 
-    public Word(String enWord, String miwokWord){
+    private int mVoice;
+
+    public Word(String enWord, String miwokWord, int miwokVoice) {
         mEnWord = enWord;
         mMiwokWord = miwokWord;
+        mVoice = miwokVoice;
     }
 
-    public Word(String enWord, String miwokWord, int imageWord){
+    public Word(String enWord, String miwokWord, int imageWord, int miwokVoice) {
         mEnWord = enWord;
         mMiwokWord = miwokWord;
         mImageWord = imageWord;
+        mVoice = miwokVoice;
     }
 
-    public String getEnglishTranslation(){
+    public String getEnglishTranslation() {
         return mEnWord;
     }
 
-    public String getMiwokTranslation(){
+    public String getMiwokTranslation() {
         return mMiwokWord;
     }
 
-    public int getMiwokImage(){
+    public int getMiwokImage() {
         return mImageWord;
     }
 
+    public int getMiwokSound() {
+        return mVoice;
+    }
+
+    /**
+     * Returns the string representation of the {@link Word} object.
+     */
+    @Override
+    public String toString() {
+        return "Word{" +
+                "mDefaultTranslation='" + mEnWord + '\'' +
+                ", mMiwokTranslation='" + mMiwokWord + '\'' +
+                ", mAudioResourceId=" + mImageWord +
+                ", mImageResourceId=" + mVoice +
+                '}';
+    }
 }
