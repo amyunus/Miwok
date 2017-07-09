@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/listItemRootView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/tan_background">
 
     <ImageView
         android:id="@+id/miwok_image_view"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher" />
 
@@ -16,13 +17,17 @@
         android:id="@+id/miwok_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/miwok_image_view" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/english_text_view"
+        app:layout_constraintLeft_toRightOf="@+id/miwok_image_view"
+        tools:text="ABC" />
 
     <TextView
         android:id="@+id/english_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@+id/miwok_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/miwok_text_view"/>
+        app:layout_constraintTop_toBottomOf="@+id/miwok_text_view"
+        tools:text="XYZ" />
 
 </android.support.constraint.ConstraintLayout>

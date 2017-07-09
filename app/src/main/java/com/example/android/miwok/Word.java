@@ -10,9 +10,17 @@ public class Word {
 
     private String mMiwokWord;
 
+    private int mImageWord;
+
     public Word(String enWord, String miwokWord){
         mEnWord = enWord;
         mMiwokWord = miwokWord;
+    }
+
+    public Word(String enWord, String miwokWord, int imageWord){
+        mEnWord = enWord;
+        mMiwokWord = miwokWord;
+        mImageWord = imageWord;
     }
 
     public String getEnglishTranslation(){
@@ -21,6 +29,10 @@ public class Word {
 
     public String getMiwokTranslation(){
         return mMiwokWord;
+    }
+
+    public int getMiwokImage(){
+        return mImageWord;
     }
 
 }

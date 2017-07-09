@@ -26,7 +26,7 @@ public class PhrasesActivity extends AppCompatActivity {
         enPhrase.add(9, new Word("I am hungry", "Saya lapar"));
         enPhrase.add(10, new Word("I order fried rice, please", "Tolong, saya pesan nasi goreng"));
 
-        WordAdapter rootNumberView = new WordAdapter(this, R.layout.list_item, enPhrase);
+        WordAdapter rootNumberView = new WordAdapter(this, R.layout.list_item, enPhrase, R.color.category_phrases);
         ListView listView = (ListView) findViewById(R.id.wordListView);
         listView.setPadding(16, 16, 16, 16);
         listView.setAdapter(rootNumberView);
