@@ -1,4 +1,21 @@
 package com.example.android.miwok;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+public class ColorsActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_category);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new ColorsFragment())
+                .commit();
+    }
+}
+
+/*
+package com.example.android.miwok;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -98,9 +115,11 @@ public class ColorsActivity extends AppCompatActivity {
         releaseMediaPlayer();
     }
 
-    /**
+    */
+/**
      * Clean up the media player by releasing its resources.
-     */
+     *//*
+
     private void releaseMediaPlayer() {
         // If the media player is not null, then it may be currently playing a sound.
         if (mediaPlayer != null) {
@@ -117,3 +136,4 @@ public class ColorsActivity extends AppCompatActivity {
         }
     }
 }
+*/

@@ -1,40 +1,30 @@
 package com.example.android.miwok;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-
-public class NumbersActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new NumbersFragment())
-                .commit();
-    }
-}
-
-
-/*
-
-package com.example.android.miwok;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class NumbersActivity extends AppCompatActivity {
+import static android.content.Context.AUDIO_SERVICE;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class NumbersFragment extends Fragment {
+
 
     MediaPlayer mediaPlayer;
 
     AudioManager audioManager;
+
 
     MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -68,9 +58,15 @@ public class NumbersActivity extends AppCompatActivity {
         }
     };
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word_list);
+    public NumbersFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.activity_word_list, container, false);
 
         final ArrayList<Word> enNumbers = new ArrayList<>();
 
@@ -86,23 +82,25 @@ public class NumbersActivity extends AppCompatActivity {
         enNumbers.add(9, new Word("Nine", "Sembilan", R.drawable.number_nine, R.raw.number_nine));
         enNumbers.add(10, new Word("Ten", "Sepuluh", R.drawable.number_ten, R.raw.number_ten));
 
-        WordAdapter rootNumberView = new WordAdapter(this, R.layout.list_item, enNumbers, R.color.category_numbers);
-        ListView listView = (ListView) findViewById(R.id.wordListView);
+        WordAdapter rootNumberView = new WordAdapter(getActivity(), R.layout.list_item, enNumbers, R.color.category_numbers);
+
+        ListView listView = (ListView) rootView.findViewById(R.id.wordListView);
         listView.setPadding(16, 16, 16, 16);
         listView.setAdapter(rootNumberView);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Word word = enNumbers.get(i);
                 releaseMediaPlayer();
 
-                audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+                audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
                 int requestAudioFocus = audioManager.requestAudioFocus(mAudioFocusListener,
                         AudioManager.STREAM_MUSIC,
                         AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
                 if (requestAudioFocus == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    mediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getMiwokSound());
+                    mediaPlayer = MediaPlayer.create(getActivity(), word.getMiwokSound());
                     mediaPlayer.start();
                     mediaPlayer.setOnCompletionListener(mCompletionListener);
 
@@ -110,19 +108,20 @@ public class NumbersActivity extends AppCompatActivity {
             }
 
         });
+
+        return rootView;
+
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         releaseMediaPlayer();
     }
 
-    */
-/**
+    /**
      * Clean up the media player by releasing its resources.
-     *//*
-
+     */
     private void releaseMediaPlayer() {
         // If the media player is not null, then it may be currently playing a sound.
         if (mediaPlayer != null) {
@@ -138,5 +137,5 @@ public class NumbersActivity extends AppCompatActivity {
             audioManager.abandonAudioFocus(mAudioFocusListener);
         }
     }
+
 }
-*/

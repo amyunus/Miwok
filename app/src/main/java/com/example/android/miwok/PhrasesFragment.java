@@ -1,36 +1,24 @@
 package com.example.android.miwok;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-
-public class NumbersActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new NumbersFragment())
-                .commit();
-    }
-}
-
-
-/*
-
-package com.example.android.miwok;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class NumbersActivity extends AppCompatActivity {
+import static android.content.Context.AUDIO_SERVICE;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class PhrasesFragment extends Fragment {
 
     MediaPlayer mediaPlayer;
 
@@ -68,41 +56,47 @@ public class NumbersActivity extends AppCompatActivity {
         }
     };
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word_list);
+    public PhrasesFragment() {
+        // Required empty public constructor
+    }
 
-        final ArrayList<Word> enNumbers = new ArrayList<>();
 
-        enNumbers.add(0, new Word("Zero", "Nol", R.drawable.color_gray, R.raw.number_ten));
-        enNumbers.add(1, new Word("One", "Satu", R.drawable.number_one, R.raw.number_one));
-        enNumbers.add(2, new Word("Two", "Dua", R.drawable.number_two, R.raw.number_two));
-        enNumbers.add(3, new Word("Three", "Tiga", R.drawable.number_three, R.raw.number_three));
-        enNumbers.add(4, new Word("Four", "Empat", R.drawable.number_four, R.raw.number_four));
-        enNumbers.add(5, new Word("Five", "Lima", R.drawable.number_five, R.raw.number_five));
-        enNumbers.add(6, new Word("Six", "Enam", R.drawable.number_six, R.raw.number_six));
-        enNumbers.add(7, new Word("Seven", "Tujuh", R.drawable.number_seven, R.raw.number_seven));
-        enNumbers.add(8, new Word("Eight", "Delapan", R.drawable.number_eight, R.raw.number_eight));
-        enNumbers.add(9, new Word("Nine", "Sembilan", R.drawable.number_nine, R.raw.number_nine));
-        enNumbers.add(10, new Word("Ten", "Sepuluh", R.drawable.number_ten, R.raw.number_ten));
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        WordAdapter rootNumberView = new WordAdapter(this, R.layout.list_item, enNumbers, R.color.category_numbers);
-        ListView listView = (ListView) findViewById(R.id.wordListView);
+        View rootView = inflater.inflate(R.layout.activity_word_list, container, false);
+
+
+        final ArrayList<Word> enPhrase = new ArrayList<>();
+        enPhrase.add(0, new Word("Good morning!", "Selamat pagi!", R.raw.phrase_are_you_coming));
+        enPhrase.add(1, new Word("Good afternoon!", "Selamat siang!", R.raw.phrase_come_here));
+        enPhrase.add(2, new Word("Good evening!", "Selamat sore!", R.raw.phrase_how_are_you_feeling));
+        enPhrase.add(3, new Word("Good night!", "Selamat malam!", R.raw.phrase_im_coming));
+        enPhrase.add(4, new Word("How are you?", "Bagaimana kabarmu?", R.raw.phrase_im_feeling_good));
+        enPhrase.add(5, new Word("See you later", "Sampai jumpa", R.raw.phrase_lets_go));
+        enPhrase.add(6, new Word("Goodbye", "Selamat tinggal", R.raw.phrase_my_name_is));
+        enPhrase.add(7, new Word("Nice to meet you", "Senang bertemu denganmu", R.raw.phrase_what_is_your_name));
+        enPhrase.add(8, new Word("Let's go!", "Ayo berangkat!", R.raw.phrase_where_are_you_going));
+        enPhrase.add(9, new Word("I am hungry", "Saya lapar", R.raw.phrase_yes_im_coming));
+        enPhrase.add(10, new Word("I order fried rice, please", "Tolong, saya pesan nasi goreng", R.raw.phrase_are_you_coming));
+
+        WordAdapter rootNumberView = new WordAdapter(getActivity(), R.layout.list_item, enPhrase, R.color.category_phrases);
+        ListView listView = (ListView) rootView.findViewById(R.id.wordListView);
         listView.setPadding(16, 16, 16, 16);
         listView.setAdapter(rootNumberView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Word word = enNumbers.get(i);
+                Word word = enPhrase.get(i);
                 releaseMediaPlayer();
-
-                audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+                audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
                 int requestAudioFocus = audioManager.requestAudioFocus(mAudioFocusListener,
                         AudioManager.STREAM_MUSIC,
                         AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
                 if (requestAudioFocus == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    mediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getMiwokSound());
+                    mediaPlayer = MediaPlayer.create(getActivity(), word.getMiwokSound());
                     mediaPlayer.start();
                     mediaPlayer.setOnCompletionListener(mCompletionListener);
 
@@ -110,19 +104,20 @@ public class NumbersActivity extends AppCompatActivity {
             }
 
         });
+
+        return rootView;
+
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         releaseMediaPlayer();
     }
 
-    */
-/**
+    /**
      * Clean up the media player by releasing its resources.
-     *//*
-
+     */
     private void releaseMediaPlayer() {
         // If the media player is not null, then it may be currently playing a sound.
         if (mediaPlayer != null) {
@@ -139,4 +134,3 @@ public class NumbersActivity extends AppCompatActivity {
         }
     }
 }
-*/
